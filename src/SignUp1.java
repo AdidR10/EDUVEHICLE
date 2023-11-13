@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author AR10_RAHMAN
+ * @author AR10_RAHMAN_Adid
  */
 public class SignUp1 extends javax.swing.JFrame {
 
