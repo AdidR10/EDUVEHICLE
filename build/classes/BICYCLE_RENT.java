@@ -32,20 +32,20 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        V_ID_GET = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        TRXID = new javax.swing.JTextField();
-        PROCEED = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        REF_TABLE = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        STR_TME = new javax.swing.JTextField();
-        ND_TME = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        PAY_MEDIUM = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,27 +112,27 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jLabel3.setText("Enter VehicleID:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, 20));
 
-        V_ID_GET.setText("jTextField1");
-        V_ID_GET.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                V_ID_GETActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(V_ID_GET, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 130, -1));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 130, -1));
 
         jLabel4.setText("Complete payment and enter TrxID:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, -1));
 
-        TRXID.setText("jTextField2");
-        jPanel2.add(TRXID, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 130, -1));
+        jTextField2.setText("jTextField2");
+        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 130, -1));
 
-        PROCEED.setText("Proceed");
-        PROCEED.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Proceed");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PROCEEDActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(PROCEED, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
 
         jLabel5.setForeground(new java.awt.Color(255, 51, 51));
         jLabel5.setText("generate demo TrxID");
@@ -143,13 +143,8 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
 
-        REF_TABLE.setText("refresh");
-        REF_TABLE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                REF_TABLEActionPerformed(evt);
-            }
-        });
-        jPanel2.add(REF_TABLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, -1, -1));
+        jButton2.setText("refreash");
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, -1, -1));
 
         jLabel6.setText("Rental Start time: ");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
@@ -157,11 +152,11 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jLabel7.setText("Rental End Time:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
-        STR_TME.setText("jTextField3");
-        jPanel2.add(STR_TME, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 90, -1));
+        jTextField3.setText("jTextField3");
+        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 90, -1));
 
-        ND_TME.setText("jTextField4");
-        jPanel2.add(ND_TME, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 90, -1));
+        jTextField4.setText("jTextField4");
+        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 90, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -182,13 +177,13 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jLabel8.setText("Medium:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
-        PAY_MEDIUM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bkash", "Nagad" }));
-        PAY_MEDIUM.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bkash", "Nagad" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PAY_MEDIUMActionPerformed(evt);
+                jComboBox3ActionPerformed(evt);
             }
         });
-        jPanel2.add(PAY_MEDIUM, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 90, -1));
+        jPanel2.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,9 +203,9 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void V_ID_GETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_V_ID_GETActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_V_ID_GETActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
@@ -224,22 +219,13 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    private void PAY_MEDIUMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PAY_MEDIUMActionPerformed
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PAY_MEDIUMActionPerformed
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
-    private void PROCEEDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PROCEEDActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String VID = V_ID_GET.getText();
-        int veh_id = Integer.parseInt(VID);
-        String t_id = TRXID.getText();
-        String pm = (String) PAY_MEDIUM.getSelectedItem();
-        
-    }//GEN-LAST:event_PROCEEDActionPerformed
-
-    private void REF_TABLEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REF_TABLEActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_REF_TABLEActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,15 +263,11 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ND_TME;
-    private javax.swing.JComboBox<String> PAY_MEDIUM;
-    private javax.swing.JButton PROCEED;
-    private javax.swing.JButton REF_TABLE;
-    private javax.swing.JTextField STR_TME;
-    private javax.swing.JTextField TRXID;
-    private javax.swing.JTextField V_ID_GET;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -298,5 +280,9 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,10 +1,3 @@
-
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import java.util.Random;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -22,8 +15,7 @@ public class ShareYourRide extends javax.swing.JFrame {
     public ShareYourRide() {
         initComponents();
     }
-    Connection con;
-    PreparedStatement pst;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,14 +33,13 @@ public class ShareYourRide extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        V_type = new javax.swing.JComboBox<>();
-        V_Model = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        V_Cond = new javax.swing.JTextArea();
-        V_Num = new javax.swing.JTextField();
+        jTextArea1 = new javax.swing.JTextArea();
+        jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        V_Upd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,34 +66,29 @@ public class ShareYourRide extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(204, 255, 255));
         jLabel10.setText("Vehicle condition  :");
 
-        V_type.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        V_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bicycle", "Motor Cycle", "Car" }));
-        V_type.addMouseListener(new java.awt.event.MouseAdapter() {
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bicycle", "Motor Cycle", "Car" }));
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                V_typeMouseClicked(evt);
-            }
-        });
-        V_type.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                V_typeActionPerformed(evt);
+                jComboBox1MouseClicked(evt);
             }
         });
 
-        V_Model.setText("Tesla");
-        V_Model.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.setText("Tesla");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                V_ModelActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
-        V_Cond.setColumns(20);
-        V_Cond.setRows(5);
-        jScrollPane1.setViewportView(V_Cond);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
-        V_Num.setText("Tesla");
-        V_Num.addActionListener(new java.awt.event.ActionListener() {
+        jTextField2.setText("Tesla");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                V_NumActionPerformed(evt);
+                jTextField2ActionPerformed(evt);
             }
         });
 
@@ -114,17 +100,14 @@ public class ShareYourRide extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(0, 102, 204));
         jButton1.setText("Upload");
 
-        V_Upd.setText("jButton2");
-        V_Upd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                V_UpdMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(426, 426, 426))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,25 +128,16 @@ public class ShareYourRide extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(V_type, 0, 263, Short.MAX_VALUE))
+                                .addComponent(jComboBox1, 0, 262, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(V_Model, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                                    .addComponent(V_Num))))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                    .addComponent(jTextField2))))
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(426, 426, 426))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(V_Upd, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,18 +145,18 @@ public class ShareYourRide extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(V_type, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(V_Model, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel9)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(V_Num, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -196,8 +170,6 @@ public class ShareYourRide extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(48, 48, 48)
-                .addComponent(V_Upd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -233,67 +205,18 @@ public class ShareYourRide extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void V_typeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_V_typeMouseClicked
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_V_typeMouseClicked
+    }//GEN-LAST:event_jComboBox1MouseClicked
 
-    private void V_ModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_V_ModelActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_V_ModelActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void V_NumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_V_NumActionPerformed
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_V_NumActionPerformed
-    public static int randomNumberGenerator(int min, int max)
-	{
-		Random r = new Random();
-		int randomNum = r.nextInt(max - min);
-		int result = randomNum + min;
-		return result;
-	}
-    private void V_UpdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_V_UpdMouseClicked
-        // TODO add your handling code here:
-        String Veh_typ = (String) V_type.getSelectedItem();
-        String Veh_mod = V_Model.getText();
-        String Veh_num = V_Num.getText();
-        String Veh_con = V_Cond.getText();
-        int Veh_id = randomNumberGenerator(0 , 100000000);
-        if(Veh_typ.isEmpty() || Veh_mod.isEmpty() || Veh_num.isEmpty() || Veh_con.isEmpty()){
-            
-            JOptionPane.showMessageDialog(this, "Please Enter All Information!");
-        }else{
-            try {
-                pst = con.prepareStatement("INSERT INTO VEHICLE (Veh_id, Veh_typ, Veh_mod, Veh_num , Veh_con) values(?,?,?,?,?)");
-                pst.setInt(1, Veh_id);
-                
-                pst.setString(2, Veh_typ);
-                pst.setString(3, Veh_mod);
-                pst.setString(4, Veh_num);
-                pst.setString(5 , Veh_con);
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
-            
-            
-                V_Model.setText("");
-                V_Num.setText("");
-                V_Cond.setText("");
-                V_type.setSelectedIndex(0);
-//                user_name.setText("");
-
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Vehicle is added");
-
-            
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(SignUp1.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_V_UpdMouseClicked
-    }
-    private void V_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_V_typeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_V_typeActionPerformed
-  
     /**
      * @param args the command line arguments
      */
@@ -330,12 +253,8 @@ public class ShareYourRide extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea V_Cond;
-    private javax.swing.JTextField V_Model;
-    private javax.swing.JTextField V_Num;
-    private javax.swing.JButton V_Upd;
-    private javax.swing.JComboBox<String> V_type;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -346,5 +265,8 @@ public class ShareYourRide extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

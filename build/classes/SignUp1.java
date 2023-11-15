@@ -185,7 +185,7 @@ public class SignUp1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Enter All Information!");
         }else{
             try {
-                pst = con.prepareStatement("insert into user(Name, Email, Password, NID number) values(?,?,?,?)");
+                pst = con.prepareStatement("insert into user_reg(Name, Email, Password, NID number) values(?,?,?,?)");
                 pst.setString(1, Name);
                 pst.setString(2, Pass);
                 pst.setString(3, Email);
