@@ -11,7 +11,7 @@ import java.sql.*;
 
 /**
  *
- * @author AR10
+ * @author AR10_RAHMAN
  */
 public class BICYCLE_RENT extends javax.swing.JFrame {
 
