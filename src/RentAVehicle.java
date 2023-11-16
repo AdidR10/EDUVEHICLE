@@ -8,12 +8,16 @@
  * @author AR10
  */
 public class RentAVehicle extends javax.swing.JFrame {
-
+    static int ID;
     /**
      * Creates new form RentAVehicle
      */
     public RentAVehicle() {
         initComponents();
+    }
+    public RentAVehicle(int userid) {
+        initComponents();
+        ID = userid;        
     }
 
     /**

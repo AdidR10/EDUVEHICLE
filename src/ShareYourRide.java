@@ -15,14 +15,17 @@ import java.sql.*;
  * @author AR10
  */
 public class ShareYourRide extends javax.swing.JFrame {
-
+    static int ID;
     /**
      * Creates new form ShareYourRide
      */
     public ShareYourRide() {
         initComponents();
     }
-    
+    public ShareYourRide(int userid) {
+        initComponents();
+        ID = userid;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
