@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.util.Random;
-
+import java.sql.*;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -22,8 +22,7 @@ public class ShareYourRide extends javax.swing.JFrame {
     public ShareYourRide() {
         initComponents();
     }
-    Connection con;
-    PreparedStatement pst;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -253,7 +252,7 @@ public class ShareYourRide extends javax.swing.JFrame {
 	}
     private void V_UpdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_V_UpdMouseClicked
         // TODO add your handling code here:
-        String Veh_typ = (String) V_type.getSelectedItem();
+                String Veh_typ = (String) V_type.getSelectedItem();
         String Veh_mod = V_Model.getText();
         String Veh_num = V_Num.getText();
         String Veh_con = V_Cond.getText();
@@ -262,34 +261,39 @@ public class ShareYourRide extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "Please Enter All Information!");
         }else{
-            try {
-                pst = con.prepareStatement("INSERT INTO VEHICLE (Veh_id, Veh_typ, Veh_mod, Veh_num , Veh_con) values(?,?,?,?,?)");
-                pst.setInt(1, Veh_id);
-                
-                pst.setString(2, Veh_typ);
-                pst.setString(3, Veh_mod);
-                pst.setString(4, Veh_num);
-                pst.setString(5 , Veh_con);
+                    try {
+                        Connection con;
+                        PreparedStatement pst;
+                        try {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(ShareYourRide.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
+                        System.out.println("The database was connected");
+                        pst = con.prepareStatement("INSERT INTO VEHICLE (Veh_id, Veh_typ, Veh_mod, Veh_num , Veh_con) values(?,?,?,?,?)");
+                        pst.setInt(1, Veh_id);
+                        pst.setString(2, Veh_typ);
+                        pst.setString(3, Veh_mod);
+                        pst.setString(4, Veh_num);
+                        pst.setString(5 , Veh_con);
+                        V_Model.setText("");
+                        V_Num.setText("");
+                        V_Cond.setText("");
+                        V_type.setSelectedIndex(0);
+//                      user_name.setText("");
+                        pst.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "Vehicle is added");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ShareYourRide.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
             
             
-                V_Model.setText("");
-                V_Num.setText("");
-                V_Cond.setText("");
-                V_type.setSelectedIndex(0);
-//                user_name.setText("");
-
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Vehicle is added");
-
             
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(SignUp1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_V_UpdMouseClicked
-    }
+    
     private void V_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_V_typeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_V_typeActionPerformed
@@ -320,7 +324,7 @@ public class ShareYourRide extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ShareYourRide.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

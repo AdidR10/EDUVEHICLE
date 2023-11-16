@@ -1,3 +1,9 @@
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import java.util.Random;
+import java.sql.*;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -64,45 +70,45 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jTable1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 4, true));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Sr No.", "Model", "Gear", "Hydraulic brake", "Phone Number", "Hourly Rate", "Location"
+                "Sr No.", "Model", "Hourly Rate", "Special Features", "Location"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -144,6 +150,11 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
 
         REF_TABLE.setText("refresh");
+        REF_TABLE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                REF_TABLEMouseClicked(evt);
+            }
+        });
         REF_TABLE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 REF_TABLEActionPerformed(evt);
@@ -216,12 +227,29 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         int veh_id = Integer.parseInt(VID);
         String t_id = TRXID.getText();
         String pm = (String) PAY_MEDIUM.getSelectedItem();
+        int rsth = (int) STR_TME.getSelectedItem();
+        int rstm = (int) jComboBox2.getSelectedItem();
+        int rndh = (int) jComboBox3.getSelectedItem();
+        int rndm = (int) END_TME.getSelectedItem();
+        
+        
         
     }//GEN-LAST:event_PROCEEDActionPerformed
 
     private void REF_TABLEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REF_TABLEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_REF_TABLEActionPerformed
+
+    private void REF_TABLEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REF_TABLEMouseClicked
+        // TODO add your handling code here:
+        Connection con;
+        PreparedStatement pst;
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
+        System.out.println("The database was connected");
+        pst = con.prepareStatement("")
+
+    }//GEN-LAST:event_REF_TABLEMouseClicked
 
     /**
      * @param args the command line arguments
