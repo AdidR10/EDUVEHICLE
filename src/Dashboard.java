@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author AR10
+ * @author AR10_RAHMAN
  */
 public class Dashboard extends javax.swing.JFrame {
     static int ID;  
