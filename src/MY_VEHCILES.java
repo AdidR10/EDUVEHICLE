@@ -20,7 +20,10 @@ public class MY_VEHCILES extends javax.swing.JFrame {
     public MY_VEHCILES() {
         initComponents();
     }
-
+    public static int UID;
+    public MY_VEHCILES(int xxx){
+        initComponents();
+    }
     
     Connection con;
     PreparedStatement pst;

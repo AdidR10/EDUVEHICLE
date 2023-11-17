@@ -211,6 +211,7 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         MY_VEHCILES c = new MY_VEHCILES();
         c.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     /**

@@ -194,30 +194,53 @@ public class SignUp1 extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "Please Enter All Information!");
         }else{
+            try {
                 Connection con;
                 PreparedStatement pst;
-                int UID = randomNumberGenerator((int)1e7, (int)1e8 - 1);
-                UID = (int)2e8 + UID;
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
-                pst = con.prepareStatement("insert into user(Name, Email, Password, NID number) values(?,?,?,?)");
-                pst.setString(1, Name);
-                pst.setString(2, Pass);
+                int pagla_val = 0;
+                int UID = 0;
+                while(pagla_val == 0){
+                    UID = randomNumberGenerator((int)1e7, (int)1e8 - 1);
+                    UID = (int)2e8 + UID;
+                    try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(SignUp1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+                    pst = con.prepareStatement("SElECT UserID FROM user WHERE UserID =  ?");
+                    pst.setInt(1 , UID);
+                    ResultSet rst = pst.executeQuery();
+                    if (!rst.next()) {
+                        pagla_val = 1;
+                    }
+                }
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(SignUp1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+                pst = con.prepareStatement("insert into user(UserID,Name, Email, Password, NID_number) values(?,?,?,?,?)");
+                pst.setInt(1 , UID);
+                pst.setString(2,Name);
                 pst.setString(3, Email);
-                pst.setString(4, Nid);
-
-            
-            
+                pst.setString(4, Pass);
+                pst.setString(5, Nid);
+                
+                
+                
                 NAME.setText("");
-//                user_name.setText("");
-
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(this, "User is added");
 
-        Login1 m = new Login1();
-            this.hide();
-            m.setVisible(true);
-        }
+                Login1 m = new Login1();
+                this.hide();
+                m.setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SignUp1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }
         ////////////////////////////////////////////////////////
     }//GEN-LAST:event_jButton1ActionPerformed
 

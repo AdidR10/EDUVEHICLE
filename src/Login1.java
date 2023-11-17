@@ -253,15 +253,12 @@ public class Login1 extends javax.swing.JFrame {
                     Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
-                System.out.println("The database was connected");
                 PreparedStatement pst;
                 pst = con.prepareStatement("select * from Admin where AdminID = ? and Password = ?");
                 pst.setString(1, Userid);
                 pst.setString(2, Pass);
-                var rs = pst.executeQuery();
-                
+                var rs = pst.executeQuery();     
                 Boolean re= rs.next();
-                
                 if(re){
                     int userid = rs.getInt("AdminID");
                     //JOptionPane.showMessageDialog(this, userid);
