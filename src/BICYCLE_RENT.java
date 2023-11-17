@@ -18,8 +18,13 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     /**
      * Creates new form BICYCLE_RENT
      */
+    static int ID;
     public BICYCLE_RENT() {
         initComponents();
+    }
+    public BICYCLE_RENT(int xx) {
+        initComponents();
+        ID = xx;
     }
     
     public static String generateRandomString(int length) {
@@ -76,6 +81,7 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -227,6 +233,14 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jLabel12.setText("minutes");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
 
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -297,6 +311,14 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
 
     }//GEN-LAST:event_REF_TABLEMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        RentAVehicle hm = new RentAVehicle(ID);
+        hm.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -340,6 +362,7 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> STR_TME;
     private javax.swing.JTextField TRXID;
     private javax.swing.JTextField V_ID_GET;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;

@@ -32,11 +32,11 @@ public class Dashboard extends javax.swing.JFrame {
         initComponents();
     }
     public Dashboard(int usid) {
+        initComponents();
         try {
-            initComponents();
             ID = usid;
-            String dhur = String.valueOf(ID);
-            LID.setText(dhur);
+            String SID = String.valueOf(ID);
+            LID.setText(SID);
             Connection con;
             PreparedStatement pst;
             try {
@@ -45,15 +45,28 @@ public class Dashboard extends javax.swing.JFrame {
                 Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
             }
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
-            System.out.println("The database was connected");
+            // System.out.println("The database was connected");
             pst = con.prepareStatement("select Name , Email from user where UserID = ?");
             pst.setInt(1, ID);
             ResultSet rs = pst.executeQuery();
+            rs.next();
             String usnm = rs.getString("Name");
             String usml = rs.getString("Email");
             LNM.setText(usnm);
             LEM.setText(usml);
-            
+            pst = con.prepareStatement("SELECT COUNT(UserID) as cnt FROM vehicle WHERE UserID = ?");
+            pst.setInt(1 , ID);
+            rs = pst.executeQuery();
+            if(!rs.next()){
+                // String rcnt = String.valueOf(rs.getInt("cnt"));
+                NUMREN.setText("0");
+                // return;
+            }
+            else{
+                String rcnt = String.valueOf(rs.getInt("cnt"));
+                NUMREN.setText(rcnt);
+                // return;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,7 +97,7 @@ public class Dashboard extends javax.swing.JFrame {
         LEM = new javax.swing.JLabel();
         LNM = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        NUMREN = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -132,6 +145,11 @@ public class Dashboard extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("LOG OUT");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 620, 130, 60));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
@@ -170,8 +188,8 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel12.setText("Vehicles rented:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 450, -1, -1));
 
-        jLabel16.setText("jLabel16");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 450, -1, -1));
+        NUMREN.setText("jLabel16");
+        jPanel1.add(NUMREN, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 450, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 720));
 
@@ -193,7 +211,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
-        RentAVehicle c = new RentAVehicle();
+        RentAVehicle c = new RentAVehicle(ID);
         c.setVisible(true);
         this.setVisible(false);
         //new RentAVehicle().setVisible(true);
@@ -201,7 +219,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
-        ShareYourRide c = new ShareYourRide();
+        ShareYourRide c = new ShareYourRide(ID);
         c.setVisible(true);
         this.setVisible(false);
         //new ShareYourRide().setVisible(true);
@@ -214,10 +232,18 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
-        MY_VEHCILES c = new MY_VEHCILES();
+        MY_VEHCILES c = new MY_VEHCILES(ID);
         c.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Login1 c = new Login1();
+        c.setVisible(true);
+        this.setVisible(false);
+        JOptionPane.showMessageDialog(this, "Logged out successfully");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,12 +287,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel LEM;
     private javax.swing.JLabel LID;
     private javax.swing.JLabel LNM;
+    private javax.swing.JLabel NUMREN;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

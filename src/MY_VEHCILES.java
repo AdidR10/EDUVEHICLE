@@ -25,9 +25,14 @@ public class MY_VEHCILES extends javax.swing.JFrame {
     }
     public static int UID;
     public MY_VEHCILES(int xxx){
+        Connection con;
+        PreparedStatement pst;
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+        
         initComponents();
         UID = xxx;
-        DefaultTableModel model = (DefaultTableModel) NWT;
+        
     }
     
     Connection con;

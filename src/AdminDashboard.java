@@ -1,3 +1,11 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -19,6 +27,33 @@ public class AdminDashboard extends javax.swing.JFrame {
     public AdminDashboard(int xxx){
         initComponents();
         ADID = xxx;
+        
+        try {
+            String SID = String.valueOf(ADID);
+            AID.setText(SID);
+            Connection con;
+            PreparedStatement pst;
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+            // System.out.println("The database was connected");
+            pst = con.prepareStatement("select `Full Name`, Email, Role from admin where AdminID = ?");
+            pst.setInt(1, ADID);
+            ResultSet rs = pst.executeQuery();      
+            rs.next();
+            String usnm = rs.getString("Full Name");
+            String usml = rs.getString("Email");
+            String usrl = rs.getString("Role");
+            System.out.println(usnm);
+            ANAME.setText(usnm);
+            AEMAIL.setText(usml);
+            AROLE.setText(usrl);
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,10 +75,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        AID = new javax.swing.JLabel();
+        ANAME = new javax.swing.JLabel();
+        AEMAIL = new javax.swing.JLabel();
+        AROLE = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
 
@@ -65,6 +100,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Supervise Edubike Location");
         jLabel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 0, 255), 5, true));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 322, -1, 60));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 255));
@@ -72,6 +112,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Monitor Maintainance");
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 0, 255), 5, true));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 79, 317, 60));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 255));
@@ -79,6 +124,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("See all Rental Transactions");
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 0, 255), 5, true));
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 202, 317, 60));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -101,17 +151,17 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel9.setText("Email: ");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(974, 546, 54, 26));
 
-        jLabel10.setText("jLabel10");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1046, 493, 109, -1));
+        AID.setText("jLabel10");
+        jPanel1.add(AID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1046, 493, 109, -1));
 
-        jLabel11.setText("jLabel10");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1046, 519, 109, -1));
+        ANAME.setText("jLabel10");
+        jPanel1.add(ANAME, new org.netbeans.lib.awtextra.AbsoluteConstraints(1046, 519, 109, -1));
 
-        jLabel12.setText("jLabel10");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1046, 551, 109, -1));
+        AEMAIL.setText("jLabel10");
+        jPanel1.add(AEMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(1046, 551, 109, -1));
 
-        jLabel13.setText("jLabel10");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1046, 577, 109, -1));
+        AROLE.setText("jLabel10");
+        jPanel1.add(AROLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(1046, 577, 109, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setText("Profile Picture:");
@@ -124,6 +174,27 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        MonitorMantainance  hm = new MonitorMantainance(ADID);
+        hm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+        RentalTransactions hm = new RentalTransactions(ADID);
+        hm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        EdubikeLocations hm = new EdubikeLocations(ADID);
+        hm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -161,11 +232,11 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AEMAIL;
+    private javax.swing.JLabel AID;
+    private javax.swing.JLabel ANAME;
+    private javax.swing.JLabel AROLE;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;

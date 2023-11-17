@@ -12,8 +12,13 @@ public class CAR_RENT extends javax.swing.JFrame {
     /**
      * Creates new form CAR_RENT
      */
+    static int ID;
     public CAR_RENT() {
         initComponents();
+    }
+    public CAR_RENT(int xx) {
+        initComponents();
+        ID = xx;
     }
 
     /**
@@ -45,6 +50,7 @@ public class CAR_RENT extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -180,6 +186,14 @@ public class CAR_RENT extends javax.swing.JFrame {
         });
         jPanel2.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, -1));
 
+        jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(698, 0, 590, 660));
 
         pack();
@@ -204,6 +218,13 @@ public class CAR_RENT extends javax.swing.JFrame {
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        RentAVehicle hm = new RentAVehicle(ID);
+        hm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,6 +264,7 @@ public class CAR_RENT extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;

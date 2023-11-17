@@ -12,8 +12,13 @@ public class BIKE_RENT extends javax.swing.JFrame {
     /**
      * Creates new form BIKE_RENT
      */
+    static int ID;
     public BIKE_RENT() {
         initComponents();
+    }
+    public BIKE_RENT(int xx) {
+        initComponents();
+        ID = xx;
     }
 
     /**
@@ -45,6 +50,7 @@ public class BIKE_RENT extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -187,6 +193,14 @@ public class BIKE_RENT extends javax.swing.JFrame {
         });
         jPanel2.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 90, -1));
 
+        jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -230,6 +244,13 @@ public class BIKE_RENT extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        RentAVehicle hm = new RentAVehicle(ID);
+        hm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,6 +289,7 @@ public class BIKE_RENT extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
