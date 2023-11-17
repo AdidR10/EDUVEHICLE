@@ -66,7 +66,6 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -111,17 +110,6 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 310, 70));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 51, 51));
-        jLabel5.setText("My profile");
-        jLabel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 6, true));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 110, 150, 50));
 
         jLabel6.setFont(new java.awt.Font("Verdana", 3, 48)); // NOI18N
         jLabel6.setText("Dashboard");
@@ -215,18 +203,14 @@ public class Dashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
-        MY_VEHCILES c = new MY_VEHCILES();
-        c.setVisible(true);
-    }//GEN-LAST:event_jLabel5MouseClicked
-
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
+        MY_VEHCILES c = new MY_VEHCILES();
+        c.setVisible(true);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     /**
@@ -277,7 +261,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
