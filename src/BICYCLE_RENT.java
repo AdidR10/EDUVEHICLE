@@ -21,7 +21,27 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     public BICYCLE_RENT() {
         initComponents();
     }
+    
+    public static String generateRandomString(int length) {
+        // Define the characters from which to generate the random string
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+        // Create a StringBuilder to store the generated random string
+        StringBuilder randomString = new StringBuilder();
+
+        // Create a Random object
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) {
+            // Generate a random index between 0 and characters.length() - 1
+            int randomIndex = random.nextInt(characters.length());
+
+            // Append the character at the random index to the randomString
+            randomString.append(characters.charAt(randomIndex));
+        }
+
+        return randomString.toString();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +72,10 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         STR_TME = new javax.swing.JComboBox<>();
         END_TME = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,7 +162,7 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
                 PROCEEDActionPerformed(evt);
             }
         });
-        jPanel2.add(PROCEED, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+        jPanel2.add(PROCEED, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, 20));
 
         jLabel5.setForeground(new java.awt.Color(255, 51, 51));
         jLabel5.setText("generate demo TrxID");
@@ -147,7 +171,7 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, 20));
 
         REF_TABLE.setText("refresh");
         REF_TABLE.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,6 +215,18 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
         jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
 
+        jLabel9.setText("minutes");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
+
+        jLabel10.setText("hrs");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
+
+        jLabel11.setText("hrs");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
+
+        jLabel12.setText("minutes");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,6 +251,13 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
+        while (true) {
+            String trx = generateRandomString(8);
+            //if (exist in database )continue;
+            // insert the trx into vehileiD owners user ID:
+            JOptionPane.showMessageDialog(this, trx);
+            break;
+        }
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void PAY_MEDIUMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PAY_MEDIUMActionPerformed
@@ -222,7 +265,10 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     }//GEN-LAST:event_PAY_MEDIUMActionPerformed
 
     private void PROCEEDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PROCEEDActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: vehicle's user's database
+        
+        //if (trxid is not found in vehicle's ownners database, then print payment is not completed yet. trxid is wrong) return;
+        
         String VID = V_ID_GET.getText();
         int veh_id = Integer.parseInt(VID);
         String t_id = TRXID.getText();
@@ -297,6 +343,9 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -304,6 +353,7 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
