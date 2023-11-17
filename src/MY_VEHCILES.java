@@ -1,7 +1,9 @@
+import com.mysql.cj.protocol.Resultset;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -23,6 +25,7 @@ public class MY_VEHCILES extends javax.swing.JFrame {
     public static int UID;
     public MY_VEHCILES(int xxx){
         initComponents();
+        UID = xxx;
     }
     
     Connection con;
@@ -189,29 +192,43 @@ public class MY_VEHCILES extends javax.swing.JFrame {
 
     private void Save_VehicleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Save_VehicleMouseClicked
         // TODO add your handling code here:
-        String v_id = Vehicle_ID.getText();
-        boolean is_set = Set_Vehicle.isSelected();
-        if(v_id.isEmpty()){
-            
+        String lep = Vehicle_ID.getText();
+        if(lep.length() == 0){
             JOptionPane.showMessageDialog(this, "Please Give Vehicle ID");
+            return;
+        }
+        int v_id = Integer.parseInt(lep);
+        boolean is_set = Set_Vehicle.isSelected();
+        // JOptionPane.showMessageDialog(this , "rtrss x");
+        
+        boolean asenaki = false;
+        try{
+            pst = con.prepareStatement("SELECT VehicleID FROM vehicle WHERE VehicleID = ? AND UserID = ?");
+            pst.setInt(1 , v_id);
+            pst.setInt(2, UID);
+            var rst = pst.executeQuery();
+            asenaki = rst.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(MY_VEHCILES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(asenaki){
+            JOptionPane.showMessageDialog(this, "Please Give A Proper Vehicle ID");
         }else{
             try {
                 pst = con.prepareStatement("UPDATE Vehicle SET STATUS = ? WHERE VehicleID = ?");
-                pst.setString(1, v_id);
+                pst.setInt(1, v_id);
                 pst.setBoolean(2, is_set);
             
             
-                v_id.setText("");
+                Vehicle_ID.setText("");
 //                user_name.setText("");
 
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Vehicle Status is updated");
-
-            
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(MY_VEHCILES.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Vehicle Status is updated");    
+            } catch (SQLException ex) {
+                Logger.getLogger(MY_VEHCILES.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_Save_VehicleMouseClicked
