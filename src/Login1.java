@@ -1,8 +1,11 @@
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -240,50 +243,63 @@ public class Login1 extends javax.swing.JFrame {
             return;
         }
         if(Userid.charAt(0) == '1'){
-            // TODO add your handling code here:
-//            if(UserName.equals("Admin") && password.equals("1234")){
-//                
-//                CARS ad = new CARS();
-//                ad.setVisible(true);
-//                this.setVisible(false);
-//                //new Main(userid,username, usertype).setVisible(true);
-//            }
-            
-//            else{
-//                JOptionPane.showMessageDialog(this, "Username and Password does not matched");
-//                user_name.requestFocus();
-//                
-//            }
-            pst = con.prepareStatement("select * from Admin where AdminID = ? and Password = ?");
-            pst.setString(1, Userid);
-            pst.setString(2, Pass);
-            rs = pst.executeQuery();
-            res=rs;
-            Boolean re= rs.next();
-//            JOptionPane.showMessageDialog(this, res);
-            if(re){
-                int userid = rs.getInt("AdminID");
-                //JOptionPane.showMessageDialog(this, userid);
-                Admin_Dashboard hm = new Admin_Dashboard(userid);
-                hm.setVisible(true);
-                this.setVisible(false);
-                //new Main(userid,username, usertype).setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(this, "UserID and Password does not match!");
-                USERID.setText("");
-                PASS.setText("");
-                USERID.requestFocus();
-            }
-        } else if(Userid.charAt(0) == '2'){
             try {
                 // TODO add your handling code here:
+                
+                Connection con;
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+                System.out.println("The database was connected");
+                PreparedStatement pst;
+                pst = con.prepareStatement("select * from Admin where AdminID = ? and Password = ?");
+                pst.setString(1, Userid);
+                pst.setString(2, Pass);
+                var rs = pst.executeQuery();
+                
+                Boolean re= rs.next();
+                
+                if(re){
+                    int userid = rs.getInt("AdminID");
+                    //JOptionPane.showMessageDialog(this, userid);
+//                    Admin_Dashboard hm = new Admin_Dashboard(userid);
+//                    hm.setVisible(true);
+//                    this.setVisible(false);
+                    //new Main(userid,username, usertype).setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(this, "UserID and Password does not match!");
+                    USERID.setText("");
+                    PASS.setText("");
+                    USERID.requestFocus();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        else if(Userid.charAt(0) == '2'){
+            
+            try {
+                // TODO add your handling code here:
+                Connection con;
+                PreparedStatement pst;
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+                System.out.println("The database was connected");
                 pst = con.prepareStatement("select * from User where UserID = ? and Password = ?");
                 pst.setString(1, Userid);
                 pst.setString(2, Pass);
-                rs = pst.executeQuery();
-                res=rs;
+                var rs = pst.executeQuery();
+                
                 Boolean re= rs.next();
-    //            JOptionPane.showMessageDialog(this, res);
+                //            JOptionPane.showMessageDialog(this, res);
                 if(re){
                     int userid = rs.getInt("UserID");
                     //JOptionPane.showMessageDialog(this, userid);
@@ -300,7 +316,7 @@ public class Login1 extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+            } else {
             JOptionPane.showMessageDialog(this, "First digit of UserId is invalid. If you are a user, start with 1, else if you are an admin, start with 2.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
