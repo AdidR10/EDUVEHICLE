@@ -1,5 +1,6 @@
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +8,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -30,28 +32,31 @@ public class Dashboard extends javax.swing.JFrame {
         initComponents();
     }
     public Dashboard(int usid) {
-        initComponents();
-        ID = usid;
-//        try {
-//            Connect();
-//            pst = con.prepareStatement("select * from driver_reg where Driver_Id = ?");
-//            pst.setInt(1, ID);
-//            rs = pst.executeQuery();
-//            Boolean res = rs.next();
-//            JOptionPane.showMessageDialog(this, "Login Successful");
-//            
-//            int cid  = rs.getInt("Driver_Id");
-//            cus_id.setText(String.valueOf(cid));
-//            
-//            cus_name.setText(rs.getString("Full_Name"));
-//            user_name.setText(rs.getString("User_Name"));
-//            contact_no.setText(rs.getString("Contact_No"));
-//            nid.setText(rs.getString("NID"));
-//            
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(driver_profile.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            initComponents();
+            ID = usid;
+            String dhur = String.valueOf(ID);
+            LID.setText(dhur);
+            Connection con;
+            PreparedStatement pst;
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+            System.out.println("The database was connected");
+            pst = con.prepareStatement("select Name , Email from user where UserID = ?");
+            pst.setInt(1, ID);
+            ResultSet rs = pst.executeQuery();
+            String usnm = rs.getString("Name");
+            String usml = rs.getString("Email");
+            LNM.setText(usnm);
+            LEM.setText(usml);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -75,9 +80,9 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        LID = new javax.swing.JLabel();
+        LEM = new javax.swing.JLabel();
+        LNM = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
@@ -153,14 +158,14 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 170, -1, -1));
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 200, 120, 120));
 
-        jLabel13.setText("jLabel13");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 350, -1, -1));
+        LID.setText("jLabel13");
+        jPanel1.add(LID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 350, -1, -1));
 
-        jLabel14.setText("jLabel14");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 410, -1, -1));
+        LEM.setText("jLabel14");
+        jPanel1.add(LEM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 410, -1, -1));
 
-        jLabel15.setText("jLabel13");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 380, -1, -1));
+        LNM.setText("jLabel13");
+        jPanel1.add(LNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 380, -1, -1));
 
         jLabel12.setText("Vehicles rented:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 450, -1, -1));
@@ -240,6 +245,9 @@ public class Dashboard extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -250,14 +258,14 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LEM;
+    private javax.swing.JLabel LID;
+    private javax.swing.JLabel LNM;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

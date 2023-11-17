@@ -242,7 +242,10 @@ public class Login1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Enter All Information!");
             return;
         }
+        
+                
         if(Userid.charAt(0) == '1'){
+            
             try {
                 // TODO add your handling code here:
                 
@@ -262,9 +265,9 @@ public class Login1 extends javax.swing.JFrame {
                 if(re){
                     int userid = rs.getInt("AdminID");
                     //JOptionPane.showMessageDialog(this, userid);
-//                    Admin_Dashboard hm = new Admin_Dashboard(userid);
-//                    hm.setVisible(true);
-//                    this.setVisible(false);
+                    AdminDashboard adm = new AdminDashboard(userid);
+                    adm.setVisible(true);
+                    this.setVisible(false);
                     //new Main(userid,username, usertype).setVisible(true);
                 }else{
                     JOptionPane.showMessageDialog(this, "UserID and Password does not match!");

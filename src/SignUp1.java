@@ -189,11 +189,27 @@ public class SignUp1 extends javax.swing.JFrame {
         String Pass = PASS.getText();
         String Email = EMAIL.getText();
         String Nid = NID.getText();
+        String Pass2 = CONPASS.getText();
         
-        if(Name.isEmpty() || Pass.isEmpty() || Email.isEmpty() || Nid.isEmpty()){
+        if(Name.isEmpty() || Pass.isEmpty() || Email.isEmpty() || Nid.isEmpty() || Pass2.isEmpty()){
             
             JOptionPane.showMessageDialog(this, "Please Enter All Information!");
-        }else{
+            return;
+        }
+        else if(Pass.length() < 8){
+            JOptionPane.showMessageDialog(this, "Password must be atleast 8 characters long");
+            return;
+        }
+        else if(Pass.equals(Pass2) == false){
+//            System.out.println(Pass);
+//            System.out.println(Pass2);
+//            System.out.println(Pass.length());
+//            System.out.println(Pass2.length());
+//            System.out.println(Pass == Pass2);
+            JOptionPane.showMessageDialog(this, "Passwords Doesn't match");
+            return;
+        }   
+        else{
             try {
                 Connection con;
                 PreparedStatement pst;

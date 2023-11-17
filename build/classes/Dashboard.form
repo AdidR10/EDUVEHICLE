@@ -218,7 +218,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
+        <Component class="javax.swing.JLabel" name="LID">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel13"/>
           </Properties>
@@ -228,7 +228,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel14">
+        <Component class="javax.swing.JLabel" name="LEM">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel14"/>
           </Properties>
@@ -238,7 +238,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel15">
+        <Component class="javax.swing.JLabel" name="LNM">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel13"/>
           </Properties>
