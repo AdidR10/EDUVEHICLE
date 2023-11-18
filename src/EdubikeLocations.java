@@ -1,3 +1,10 @@
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import java.util.Random;
+import java.sql.*;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,6 +19,19 @@ public class EdubikeLocations extends javax.swing.JFrame {
     /**
      * Creates new form EdubikeLocations
      */
+    Connection con;
+    PreparedStatement pst;
+    ResultSet Rs;
+    public void Connect () throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
+            System.out.println("The database was connected");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(EdubikeLocations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     static int ID;
     public EdubikeLocations() {
         initComponents();
@@ -19,8 +39,31 @@ public class EdubikeLocations extends javax.swing.JFrame {
     
     public EdubikeLocations(int xx) {
         initComponents();
+        try {
+            Connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(EdubikeLocations.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        table();
         ID = xx;
     }
+    public void table(){
+        try {
+            pst = con.prepareStatement("SELECT VehicleID, `Location Name`, `Owner Type`"
+                    + "FROM location as L CROSS JOIN vehicle as V"
+                    + "WHERE L.LocationID = V.LocationID");
+            Rs = pst.executeQuery();
+            DefaultTableModel df = (DefaultTableModel) JLOC.getModel();
+            df.setRowCount(0);
+            while(Rs.next()){
+                String data[] = {Rs.getString("VehicleID"), Rs.getString("Location Name"), Rs.getString("Owner Type")};
+                df.addRow(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EdubikeLocations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,14 +75,14 @@ public class EdubikeLocations extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JLOC = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JLOC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -47,10 +90,10 @@ public class EdubikeLocations extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "VehicleID", "Location", "Vehicle Type"
+                "VehicleID", "Location", "Owner Type"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JLOC);
 
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -135,9 +178,9 @@ public class EdubikeLocations extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable JLOC;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

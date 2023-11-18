@@ -1,3 +1,13 @@
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,6 +22,18 @@ public class RentalTransactions extends javax.swing.JFrame {
     /**
      * Creates new form RentalTransactions
      */
+    Connection con;
+    PreparedStatement pst;
+    ResultSet Rs;
+    public void Connect () throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
+            System.out.println("The database was connected");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     static int ID;
     public RentalTransactions() {
         initComponents();
@@ -20,6 +42,29 @@ public class RentalTransactions extends javax.swing.JFrame {
     public RentalTransactions(int xx) {
         initComponents();
         ID = xx;
+        try {
+            Connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        table();
+    }
+    public void table(){
+        try {
+            pst = con.prepareStatement("SELECT `Payment Date`, `Rental Start Time`, `Rental End Time`, TransactionID, `Payment Method`, 'VehicleID', Name"
+                    + "FROM user as U "
+                    + "CROSS JOIN `Rental Payment` as RP");
+                    
+            Rs = pst.executeQuery();
+            DefaultTableModel df = (DefaultTableModel) JRT.getModel();
+            df.setRowCount(0);
+            while(Rs.next()){
+                String data[] = {Rs.getString("Payment Date"), Rs.getString("Rental Start Time"), Rs.getString("Rental End Time"), Rs.getString("TransactionID"), Rs.getString("Payment Method"), Rs.getString("VehicleID"), Rs.getString("Name")};
+                df.addRow(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,14 +77,14 @@ public class RentalTransactions extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JRT = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JRT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -47,10 +92,10 @@ public class RentalTransactions extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Date", "Start Time", "End Time", "TransactionID", "Payment Method", "VehicleID", "UserID"
+                "Date", "Start Time", "End Time", "TransactionID", "Payment Method", "VehicleID", "UserName"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JRT);
 
         jButton1.setText("Go Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -135,9 +180,9 @@ public class RentalTransactions extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable JRT;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

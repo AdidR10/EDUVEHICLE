@@ -148,7 +148,6 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jLabel3.setText("Enter VehicleID:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, 20));
 
-        V_ID_GET.setText("jTextField1");
         V_ID_GET.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 V_ID_GETActionPerformed(evt);
@@ -159,7 +158,11 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jLabel4.setText("Complete payment and enter TrxID:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, -1));
 
-        TRXID.setText("jTextField2");
+        TRXID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TRXIDActionPerformed(evt);
+            }
+        });
         jPanel2.add(TRXID, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 130, -1));
 
         PROCEED.setText("Proceed");
@@ -318,6 +321,10 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         this.setVisible(false);
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TRXIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TRXIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TRXIDActionPerformed
 
     /**
      * @param args the command line arguments

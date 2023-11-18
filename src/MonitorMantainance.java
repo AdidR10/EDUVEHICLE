@@ -1,3 +1,13 @@
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,6 +22,19 @@ public class MonitorMantainance extends javax.swing.JFrame {
     /**
      * Creates new form MonitorMantainance
      */
+    Connection con;
+    PreparedStatement pst;
+    ResultSet Rs;
+    public void Connect () throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
+            System.out.println("The database was connected");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     static int ID;
     public MonitorMantainance() {
         initComponents();
@@ -19,6 +42,28 @@ public class MonitorMantainance extends javax.swing.JFrame {
     public MonitorMantainance(int xx) {
         initComponents();
         ID = xx;
+        try {
+            Connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        table();
+    }
+    
+    public void table(){
+        try {
+            pst = con.prepareStatement("SELECT VehicleID, Cost, `Start Date`, Description"
+                    + "FROM maintenance as M");
+            Rs = pst.executeQuery();
+            DefaultTableModel df = (DefaultTableModel) JMON.getModel();
+            df.setRowCount(0);
+            while(Rs.next()){
+                String data[] = {Rs.getString("VehicleID"), Rs.getString("Cost"), Rs.getString("Start Date"), Rs.getString("Description")};
+                df.addRow(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 
@@ -33,7 +78,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JMON = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -50,7 +95,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(153, 204, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JMON.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -61,7 +106,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
                 "VehicleID", "Cost", "Start Date", "Damage"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JMON);
 
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -224,6 +269,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable JMON;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -234,7 +280,6 @@ public class MonitorMantainance extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
