@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import java.util.Random;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -79,16 +82,23 @@ public class MonitorMantainance extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JMON = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        VID1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        JBP2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        VID2 = new javax.swing.JTextField();
+        JBP1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        VC = new javax.swing.JTextField();
+        VSD = new javax.swing.JTextField();
+        VEOD = new javax.swing.JTextField();
+        VD = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,21 +118,20 @@ public class MonitorMantainance extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(JMON);
 
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Release From mantainance:");
+
+        VID1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                VID1ActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Release From mantainance:");
-
         jLabel2.setText("VehicleID:");
 
-        jButton2.setText("Proceed");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        JBP2.setText("Proceed");
+        JBP2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                JBP2ActionPerformed(evt);
             }
         });
 
@@ -130,14 +139,44 @@ public class MonitorMantainance extends javax.swing.JFrame {
 
         jLabel4.setText("VehicleID:");
 
-        jButton3.setText("Proceed");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        JBP1.setText("Proceed");
+        JBP1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                JBP1ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Refreash");
+        jLabel5.setText("Cost:");
+
+        jLabel6.setText("Exp. Over Date:");
+
+        jLabel8.setText("Damage:");
+
+        VC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VCActionPerformed(evt);
+            }
+        });
+
+        VSD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VSDActionPerformed(evt);
+            }
+        });
+
+        VEOD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VEODActionPerformed(evt);
+            }
+        });
+
+        VD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VDActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Start Date:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,60 +184,83 @@ public class MonitorMantainance extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(59, 59, 59))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton2)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton3)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(JBP1)
+                                    .addComponent(VID1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(JBP2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(jButton4)))
-                        .addContainerGap(75, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(VD)
+                                    .addComponent(VEOD)
+                                    .addComponent(VSD)
+                                    .addComponent(VC))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(VID2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(17, 17, 17)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(JBP1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(VID2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(42, 42, 42)
-                .addComponent(jButton4)
-                .addGap(0, 54, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(VC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(VSD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(VEOD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(VD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(JBP2)
+                .addContainerGap())
         );
+
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,25 +268,143 @@ public class MonitorMantainance extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void JBP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBP2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String vid2 = VID2.getText();
+        if (vid2.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "It cannot be blank!");
+            return;
+        }
+        
+        try {
+            pst = con.prepareStatement("select * from vehicle as V where V.VehicleID = ?");
+            pst.setString(1, vid2);
+            var rs = pst.executeQuery();
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(this, "This vehicle is not registered");
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            pst = con.prepareStatement("select VehicleID, UserID from vehicle as V where V.VehicleID = ?");
+            pst.setString(1, vid2);
+            var rs = pst.executeQuery();
+            rs.next();
+            String uid = rs.getString("AdminID");
+            if (uid.charAt(0) == '2') {
+                JOptionPane.showMessageDialog(this, "Sorry! Only EduVehicle's vechicles can be send to maintainance");
+                return;
+            }  
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // check if already in maintainance:
+        
+        
+        // set availability status of VID2 to unavaiible.
+        try {
+            pst = con.prepareStatement("update vehicle SET `Availability Status` = 0 WHERE vehicleID = ?");
+            pst.setString(1, vid2); 
+            var rs = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //inert VID2  to maintainance log
+        try {
+            String mid = ;
+            String cost = VC.getText();
+            String startdate = VSD.getText();
+            String expendofdate = VEOD.getText();
+            String description = VD.getText(); 
+            //vid2
+            String adminnid = String.valueOf(ID);
+            pst = con.prepareStatement("INSERT INTO maintenance (MaintenanceID, Cost, `Start Date`, `Expected Over Date`, Description, VehicleID, AdminID) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            pst.setString(1, mid);
+            pst.setString(2, cost);
+            pst.setString(3, startdate);
+            pst.setString(4, expendofdate);
+            pst.setString(5, description);
+            pst.setString(6, vid2);
+            pst.setString(7, adminnid);
+            var rs = pst.executeQuery();
+            rs.next();
+            String uid = rs.getString("AdminID");
+            if (uid.charAt(0) == '2') {
+                JOptionPane.showMessageDialog(this, "Sorry! Only EduVehicle's vechicles can be send to maintainance");
+                return;
+            }  
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        table();
+    }//GEN-LAST:event_JBP2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void JBP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBP1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        String vid1 = VID1.getText();
+        if (vid1.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "It cannot be blank!");
+            return;
+        }
+        // if already not in maintenance
+        try {
+            pst = con.prepareStatement("select * from maintenance as M where V.VehicleID = ?");
+            pst.setString(1, vid1);
+            var rs = pst.executeQuery();
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(this, "This vehicle is already not int maintenance");
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // make VID1 available for rent
+        try {
+            pst = con.prepareStatement("update vehicle SET `Availability Status` = 1 WHERE vehicleID = ?");
+            pst.setString(1, vid1); 
+            var rs = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // remove VID1 from maintainance log
+        try {
+            pst = con.prepareStatement("select * from maintenance as M where V.VehicleID = ?");
+            pst.setString(1, vid1); 
+            var rs = pst.executeQuery();
+            
+            rs.next();
+            String midd = rs.getString("MaintenanceID");
+            
+            pst = con.prepareStatement("DELETE FROM maintenance WHERE MaintenanceID = ?");
+            pst.setString(1, midd); 
+            var hoise = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //update table:
+        table();        
+    }//GEN-LAST:event_JBP1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -232,6 +412,26 @@ public class MonitorMantainance extends javax.swing.JFrame {
         hm.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void VID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VID1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VID1ActionPerformed
+
+    private void VSDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VSDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VSDActionPerformed
+
+    private void VEODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VEODActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VEODActionPerformed
+
+    private void VDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VDActionPerformed
+
+    private void VCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VCActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,18 +469,25 @@ public class MonitorMantainance extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBP1;
+    private javax.swing.JButton JBP2;
     private javax.swing.JTable JMON;
+    private javax.swing.JTextField VC;
+    private javax.swing.JTextField VD;
+    private javax.swing.JTextField VEOD;
+    private javax.swing.JTextField VID1;
+    private javax.swing.JTextField VID2;
+    private javax.swing.JTextField VSD;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
