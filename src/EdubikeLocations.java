@@ -22,10 +22,11 @@ public class EdubikeLocations extends javax.swing.JFrame {
     Connection con;
     PreparedStatement pst;
     ResultSet Rs;
+    int stt = 1;
     public void Connect () throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
             System.out.println("The database was connected");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EdubikeLocations.class.getName()).log(Level.SEVERE, null, ex);
@@ -44,19 +45,21 @@ public class EdubikeLocations extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(EdubikeLocations.class.getName()).log(Level.SEVERE, null, ex);
         }      
-        table();
+        table(0);
         ID = xx;
     }
-    public void table(){
+    public void table(int xxx){
         try {
-            pst = con.prepareStatement("SELECT VehicleID, `Location Name`, `Owner Type`"
-                    + "FROM location as L CROSS JOIN vehicle as V"
-                    + "WHERE L.LocationID = V.LocationID");
+            
+            pst = con.prepareStatement("SELECT VehicleID, `Location_Name`, `Owner_Type` "
+                    + "FROM location as L CROSS JOIN vehicle as V "
+                    + "WHERE L.LocationID = V.LocationID AND Owner_Type = 1 OR Owner_type = ?");
+            pst.setInt(1 , xxx);
             Rs = pst.executeQuery();
             DefaultTableModel df = (DefaultTableModel) JLOC.getModel();
             df.setRowCount(0);
             while(Rs.next()){
-                String data[] = {Rs.getString("VehicleID"), Rs.getString("Location Name"), Rs.getString("Owner Type")};
+                String data[] = {Rs.getString("VehicleID"), Rs.getString("Location_Name"), Rs.getString("Owner_Type")};
                 df.addRow(data);
             }
         } catch (SQLException ex) {
@@ -77,6 +80,7 @@ public class EdubikeLocations extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         JLOC = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,15 +106,28 @@ public class EdubikeLocations extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton1.setText("EduBike");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,6 +135,8 @@ public class EdubikeLocations extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jToggleButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -141,6 +160,12 @@ public class EdubikeLocations extends javax.swing.JFrame {
         hm.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        table(stt);
+        stt ^= 1;
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,5 +207,6 @@ public class EdubikeLocations extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

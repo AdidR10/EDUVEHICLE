@@ -65,6 +65,11 @@ public class Login1 extends javax.swing.JFrame {
                 PASSActionPerformed(evt);
             }
         });
+        PASS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PASSKeyPressed(evt);
+            }
+        });
 
         USERID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,6 +329,10 @@ public class Login1 extends javax.swing.JFrame {
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void PASSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PASSKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PASSKeyPressed
 
     /**
      * @param args the command line arguments

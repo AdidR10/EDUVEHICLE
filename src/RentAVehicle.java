@@ -1,3 +1,8 @@
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -137,17 +142,21 @@ public class RentAVehicle extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // TODO add your handling code here:
-        BICYCLE_RENT c = new BICYCLE_RENT();
-        c.setVisible(true);
-        this.setVisible(false);
-        //new BICYCLE_RENT().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            BICYCLE_RENT c = new BICYCLE_RENT(ID);
+            c.setVisible(true);
+            this.setVisible(false);
+            //new BICYCLE_RENT().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RentAVehicle.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
-        BIKE_RENT c = new BIKE_RENT();
+        BIKE_RENT c = new BIKE_RENT(ID);
         c.setVisible(true);
         this.setVisible(false);
         //new BIKE_RENT().setVisible(true);
@@ -155,7 +164,7 @@ public class RentAVehicle extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        CAR_RENT c = new CAR_RENT();
+        CAR_RENT c = new CAR_RENT(ID);
         c.setVisible(true);
         this.setVisible(false);
         //new CAR_RENT().setVisible(true);

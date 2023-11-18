@@ -4,6 +4,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.util.Random;
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
+//import java.util.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -18,15 +22,56 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     /**
      * Creates new form BICYCLE_RENT
      */
+    
     static int ID;
-    public BICYCLE_RENT() {
+    Connection con;
+    PreparedStatement pst;
+    ResultSet Rs;
+    public BICYCLE_RENT() throws SQLException {
         initComponents();
+        Connect();
     }
-    public BICYCLE_RENT(int xx) {
+    public BICYCLE_RENT(int xx) throws SQLException {
         initComponents();
         ID = xx;
+        Connect();
+        table();
+    }
+    public void Connect () throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+            System.out.println("The database was connected");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(BICYCLE_RENT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
+    public void table(){
+        try {
+//            pst = con.prepareStatement("SELECT VehicleID , Model , Hourly_Rate, Special_Features, Location_Name "
+//                    + "FROM vehicle , location "
+//                    + "WHERE vehicle.UserID != ? AND vehicle.LocationID = location.LocationID AND Vehicle_Type = \"Bicycle\" AND Availability_Status = 1");
+            System.out.println("yoyoyoyo");
+            pst = con.prepareStatement("SELECT VehicleID , Model , Hourly_Rate, Special_Features, Location_Name FROM vehicle CROSS JOIN location WHERE vehicle.UserID <> 1 AND vehicle.LocationID = location.LocationID AND Vehicle_Type = 'Bicycle' AND Availability_Status = 1");
+//            pst.setInt(1 , ID);
+            Rs = pst.executeQuery();
+            DefaultTableModel df = (DefaultTableModel) BINWT.getModel();
+            df.setRowCount(0);
+            System.out.println("yoyoyoyo");
+            while(Rs.next()){
+                System.out.println("yoyoyoyo");
+                String data[] = {String.valueOf(Rs.getInt("VehicleID")), Rs.getString("Model"), String.valueOf(Rs.getInt("Hourly_Rate")), Rs.getString("Special_Features"), Rs.getString("Location_Name")};
+                df.addRow(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EdubikeLocations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public static String getTodaysDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(new Date());
+    }
     public static String generateRandomString(int length) {
         // Define the characters from which to generate the random string
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -61,14 +106,12 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        BINWT = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         V_ID_GET = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         TRXID = new javax.swing.JTextField();
         PROCEED = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        REF_TABLE = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -96,9 +139,9 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(153, 204, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setBackground(new java.awt.Color(153, 204, 255));
-        jTable1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 4, true));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        BINWT.setBackground(new java.awt.Color(153, 204, 255));
+        BINWT.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 4, true));
+        BINWT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -138,10 +181,10 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Sr No.", "Model", "Hourly Rate", "Special Features", "Location"
+                "VehicleID", "Model", "Hourly Rate", "Special Features", "Location"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(BINWT);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 600, 600));
 
@@ -172,28 +215,6 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
             }
         });
         jPanel2.add(PROCEED, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, 20));
-
-        jLabel5.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel5.setText("generate demo TrxID");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, 20));
-
-        REF_TABLE.setText("refresh");
-        REF_TABLE.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                REF_TABLEMouseClicked(evt);
-            }
-        });
-        REF_TABLE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                REF_TABLEActionPerformed(evt);
-            }
-        });
-        jPanel2.add(REF_TABLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, -1, -1));
 
         jLabel6.setText("Rental Start time: ");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
@@ -266,53 +287,62 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_V_ID_GETActionPerformed
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
-        while (true) {
-            String trx = generateRandomString(8);
-            //if (exist in database )continue;
-            // insert the trx into vehileiD owners user ID:
-            JOptionPane.showMessageDialog(this, trx);
-            break;
-        }
-    }//GEN-LAST:event_jLabel5MouseClicked
-
     private void PAY_MEDIUMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PAY_MEDIUMActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PAY_MEDIUMActionPerformed
 
     private void PROCEEDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PROCEEDActionPerformed
-        // TODO add your handling code here: vehicle's user's database
-        
-        //if (trxid is not found in vehicle's ownners database, then print payment is not completed yet. trxid is wrong) return;
-        
-        String VID = V_ID_GET.getText();
-        int veh_id = Integer.parseInt(VID);
-        String t_id = TRXID.getText();
-        String pm = (String) PAY_MEDIUM.getSelectedItem();
-        int rsth = (int) STR_TME.getSelectedItem();
-        int rstm = (int) jComboBox2.getSelectedItem();
-        int rndh = (int) jComboBox3.getSelectedItem();
-        int rndm = (int) END_TME.getSelectedItem();
-        
-        
+        try {
+            // TODO add your handling code here: vehicle's user's database
+            
+            //if (trxid is not found in vehicle's ownners database, then print payment is not completed yet. trxid is wrong) return;
+            
+            String VID = V_ID_GET.getText();
+            int veh_id = Integer.parseInt(VID);
+            String t_id = TRXID.getText();
+            
+            String pm = (String) PAY_MEDIUM.getSelectedItem();
+            int rsth = Integer.parseInt((String) STR_TME.getSelectedItem());
+            int rstm = Integer.parseInt((String) jComboBox2.getSelectedItem());
+            int rndh = Integer.parseInt((String) jComboBox3.getSelectedItem());
+            int rndm = Integer.parseInt((String) END_TME.getSelectedItem());
+            int acst = rsth * 60 + rstm;
+            int acnt = rndh * 60 + rndm;
+            if(acnt - acst < 10){
+                JOptionPane.showMessageDialog(this, "You Can not rent a bicylce for less than 10 minutes");
+                return;
+            }
+            String todayString = getTodaysDate();
+            pst = con.prepareStatement("INSERT INTO `rental payment` (`Rental Start Time` , `Rental End Time`, `TransactionID` , `Payment Date`, `Payment Method`, VehicleID, UserID) VALUES (?,?,?,?,?,?,?)");
+            pst.setInt(1 , acst);
+            pst.setInt(2 , acnt);
+            pst.setInt(3, Integer.parseInt(t_id));
+            pst.setString(4 , todayString);
+            pst.setString(5 , pm);
+            pst.setInt(6 , veh_id);
+            pst.setInt(7 , ID);
+            int heo = pst.executeUpdate();
+            pst = con.prepareStatement("SELECT * FROM rents WHERE VehicleID = ? AND USERID = ?");
+            pst.setInt(1 , veh_id);
+            pst.setInt(2 , ID);
+            Rs = pst.executeQuery();
+            boolean chk = Rs.next();
+            if(!chk){
+                pst = con.prepareStatement("INSERT INTO rents (UserID, VehicleID) VALUES (?,?)");
+                pst.setInt(1 , ID);
+                pst.setInt(2 , veh_id);
+                pst.executeUpdate();
+            } 
+            pst = con.prepareStatement("UPDATE vehicle SET Availability_Status = 0 WHERE VehicleID = ?");
+            pst.setInt(1 , veh_id);
+            pst.executeUpdate();
+            table();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BICYCLE_RENT.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_PROCEEDActionPerformed
-
-    private void REF_TABLEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REF_TABLEActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_REF_TABLEActionPerformed
-
-    private void REF_TABLEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REF_TABLEMouseClicked
-        // TODO add your handling code here:
-        Connection con;
-        PreparedStatement pst;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
-        System.out.println("The database was connected");
-        pst = con.prepareStatement("")
-
-    }//GEN-LAST:event_REF_TABLEMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -356,16 +386,20 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BICYCLE_RENT().setVisible(true);
+                try {
+                    new BICYCLE_RENT().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(BICYCLE_RENT.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable BINWT;
     private javax.swing.JComboBox<String> END_TME;
     private javax.swing.JComboBox<String> PAY_MEDIUM;
     private javax.swing.JButton PROCEED;
-    private javax.swing.JButton REF_TABLE;
     private javax.swing.JComboBox<String> STR_TME;
     private javax.swing.JTextField TRXID;
     private javax.swing.JTextField V_ID_GET;
@@ -379,7 +413,6 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -387,6 +420,5 @@ public class BICYCLE_RENT extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

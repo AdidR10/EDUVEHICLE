@@ -232,9 +232,16 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
-        MY_VEHCILES c = new MY_VEHCILES(ID);
-        c.setVisible(true);
-        this.setVisible(false);
+        
+        try {
+            MY_VEHCILES c;
+            c = new MY_VEHCILES(ID);
+            c.setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

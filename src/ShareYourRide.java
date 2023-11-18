@@ -271,7 +271,7 @@ public class ShareYourRide extends javax.swing.JFrame {
         String Veh_mod = V_Model.getText();
         String Veh_num = V_Num.getText();
         String Veh_con = V_Cond.getText();
-        int Veh_id = randomNumberGenerator(0 , 100000000);
+//        int Veh_id = randomNumberGenerator(0 , 100000000);
         if(Veh_typ.isEmpty() || Veh_mod.isEmpty() || Veh_num.isEmpty() || Veh_con.isEmpty()){
             
             JOptionPane.showMessageDialog(this, "Please Enter All Information!");
@@ -286,12 +286,11 @@ public class ShareYourRide extends javax.swing.JFrame {
                         }
                         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
                         System.out.println("The database was connected");
-                        pst = con.prepareStatement("INSERT INTO VEHICLE (Veh_id, Veh_typ, Veh_mod, Veh_num , Veh_con) values(?,?,?,?,?)");
-                        pst.setInt(1, Veh_id);
-                        pst.setString(2, Veh_typ);
-                        pst.setString(3, Veh_mod);
-                        pst.setString(4, Veh_num);
-                        pst.setString(5 , Veh_con);
+                        pst = con.prepareStatement("INSERT INTO VEHICLE (Veh_typ, Veh_mod, Veh_num , Veh_con) values(?,?,?,?)");
+                        pst.setString(1, Veh_typ);
+                        pst.setString(2, Veh_mod);
+                        pst.setString(3, Veh_num);
+                        pst.setString(4 , Veh_con);
                         V_Model.setText("");
                         V_Num.setText("");
                         V_Cond.setText("");

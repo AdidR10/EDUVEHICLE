@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 /*
@@ -53,12 +55,17 @@ public class MonitorMantainance extends javax.swing.JFrame {
         table();
     }
     
+     public static String getTodaysDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(new java.util.Date());
+    }
+    
     public void table(){
         try {
             pst = con.prepareStatement("SELECT VehicleID, Cost, `Start Date`, Description"
                     + "FROM maintenance as M");
             Rs = pst.executeQuery();
-            DefaultTableModel df = (DefaultTableModel) JMON.getModel();
+            DefaultTableModel df = (DefaultTableModel) BINWT.getModel();
             df.setRowCount(0);
             while(Rs.next()){
                 String data[] = {Rs.getString("VehicleID"), Rs.getString("Cost"), Rs.getString("Start Date"), Rs.getString("Description")};
@@ -105,7 +112,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JMON = new javax.swing.JTable();
+        BINWT = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         VID1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -129,7 +136,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(153, 204, 255));
 
-        JMON.setModel(new javax.swing.table.DefaultTableModel(
+        BINWT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -140,7 +147,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
                 "VehicleID", "Cost", "Start Date", "Damage"
             }
         ));
-        jScrollPane1.setViewportView(JMON);
+        jScrollPane1.setViewportView(BINWT);
 
         jLabel1.setText("Release From mantainance:");
 
@@ -505,9 +512,9 @@ public class MonitorMantainance extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable BINWT;
     private javax.swing.JButton JBP1;
     private javax.swing.JButton JBP2;
-    private javax.swing.JTable JMON;
     private javax.swing.JTextField VC;
     private javax.swing.JTextField VD;
     private javax.swing.JTextField VEOD;

@@ -28,10 +28,10 @@ public class RentalTransactions extends javax.swing.JFrame {
     public void Connect () throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
             System.out.println("The database was connected");
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RentalTransactions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     static int ID;
@@ -51,9 +51,9 @@ public class RentalTransactions extends javax.swing.JFrame {
     }
     public void table(){
         try {
-            pst = con.prepareStatement("SELECT `Payment Date`, `Rental Start Time`, `Rental End Time`, TransactionID, `Payment Method`, 'VehicleID', Name"
+            pst = con.prepareStatement("SELECT `Payment Date`, `Rental Start Time`, `Rental End Time`, TransactionID, `Payment Method`, 'VehicleID', Name "
                     + "FROM user as U "
-                    + "CROSS JOIN `Rental Payment` as RP");
+                    + "CROSS JOIN `Rental Payment` as RP WHERE RP.UserID = U.UserID");
                     
             Rs = pst.executeQuery();
             DefaultTableModel df = (DefaultTableModel) JRT.getModel();

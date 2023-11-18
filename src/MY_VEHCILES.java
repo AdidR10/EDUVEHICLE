@@ -20,23 +20,53 @@ public class MY_VEHCILES extends javax.swing.JFrame {
     /**
      * Creates new form MY_VEHCILES
      */
+    Connection con;
+    PreparedStatement pst;
+    ResultSet Rs;
     public MY_VEHCILES() {
         initComponents();
     }
     public static int UID;
-    public MY_VEHCILES(int xxx){
-        Connection con;
-        PreparedStatement pst;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+    public MY_VEHCILES(int xxx) throws SQLException{
+        
         
         initComponents();
         UID = xxx;
+        Connect();
+        table();
         
     }
+    public void Connect () throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
+            System.out.println("The database was connected");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MY_VEHCILES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
-    Connection con;
-    PreparedStatement pst;
+    public void table(){
+        try {
+            pst = con.prepareStatement("SELECT Vehicle_Type , VehicleID, Model , Availability_Status "
+                    + "FROM vehicle "
+                    + "WHERE vehicle.UserID = ?");
+            pst.setInt(1 , UID);
+            Rs = pst.executeQuery();
+            DefaultTableModel df = (DefaultTableModel) NWT.getModel();
+            df.setRowCount(0);
+            while(Rs.next()){
+                int sttt = Rs.getInt("Availability_Status");
+                String wowo = "YES";
+                if(sttt == 0) wowo = "NO";
+                String data[] = {Rs.getString("Vehicle_Type"), String.valueOf(Rs.getInt("VehicleID")), Rs.getString("Model"), wowo};
+                df.addRow(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EdubikeLocations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -219,19 +249,22 @@ public class MY_VEHCILES extends javax.swing.JFrame {
             Logger.getLogger(MY_VEHCILES.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(asenaki){
+        if(!asenaki){
             JOptionPane.showMessageDialog(this, "Please Give A Proper Vehicle ID");
         }else{
             try {
-                pst = con.prepareStatement("UPDATE Vehicle SET STATUS = ? WHERE VehicleID = ?");
-                pst.setInt(1, v_id);
-                pst.setBoolean(2, is_set);
+                pst = con.prepareStatement("UPDATE vehicle SET Availability_Status = ? WHERE VehicleID = ?");
+                int tempis_set = 0;
+                if(is_set) tempis_set = 1;
+                pst.setInt(1, tempis_set);
+                pst.setInt(2, v_id);
             
             
                 Vehicle_ID.setText("");
 //                user_name.setText("");
 
                 pst.executeUpdate();
+                table();
                 JOptionPane.showMessageDialog(this, "Vehicle Status is updated");    
             } catch (SQLException ex) {
                 Logger.getLogger(MY_VEHCILES.class.getName()).log(Level.SEVERE, null, ex);
