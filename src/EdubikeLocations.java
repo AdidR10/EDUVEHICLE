@@ -52,8 +52,8 @@ public class EdubikeLocations extends javax.swing.JFrame {
         try {
             
             pst = con.prepareStatement("SELECT VehicleID, `Location_Name`, `Owner_Type` "
-                    + "FROM location as L CROSS JOIN vehicle as V "
-                    + "WHERE L.LocationID = V.LocationID AND Owner_Type = 1 OR Owner_type = ?");
+                    + "FROM location , vehicle "
+                    + "WHERE (location.LocationID = vehicle.LocationID) AND (vehicle.Owner_Type = 1 OR vehicle.Owner_type = ?)");
             pst.setInt(1 , xxx);
             Rs = pst.executeQuery();
             DefaultTableModel df = (DefaultTableModel) JLOC.getModel();

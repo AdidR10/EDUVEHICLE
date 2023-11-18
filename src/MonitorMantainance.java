@@ -427,7 +427,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
             pst.setDate(3, sqlDateover);
             pst.setString(4, description);
             pst.setInt(5, viddd);
-            pst.setInt(6, admiidddd);
+            pst.setInt(6, ID);
             var rs = pst.executeUpdate();  
         } catch (SQLException ex) {
             Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);

@@ -173,7 +173,7 @@ public class BIKE_RENT extends javax.swing.JFrame {
         jLabel4.setText("Complete payment and enter TrxID:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, -1));
 
-        V_ID_GET.setText("jTextField1");
+        V_ID_GET.setText("VehicleID");
         V_ID_GET.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 V_ID_GETActionPerformed(evt);
@@ -181,7 +181,7 @@ public class BIKE_RENT extends javax.swing.JFrame {
         });
         jPanel2.add(V_ID_GET, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 130, -1));
 
-        TRXID.setText("jTextField2");
+        TRXID.setText("TransactionID");
         jPanel2.add(TRXID, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 130, -1));
 
         jButton1.setText("Proceed");

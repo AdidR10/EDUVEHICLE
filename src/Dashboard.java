@@ -91,7 +91,6 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         LID = new javax.swing.JLabel();
         LEM = new javax.swing.JLabel();
@@ -171,18 +170,15 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel10.setText("Email:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 410, -1, -1));
-
-        jLabel3.setText("profile picture:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 170, -1, -1));
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 200, 120, 120));
 
-        LID.setText("jLabel13");
+        LID.setText("UserID");
         jPanel1.add(LID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 350, -1, -1));
 
-        LEM.setText("jLabel14");
+        LEM.setText("Email");
         jPanel1.add(LEM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 410, -1, -1));
 
-        LNM.setText("jLabel13");
+        LNM.setText("Name");
         jPanel1.add(LNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 380, -1, -1));
 
         jLabel12.setText("Vehicles rented:");
@@ -301,7 +297,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
