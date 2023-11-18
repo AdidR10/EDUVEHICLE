@@ -9,9 +9,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Random;
+import java.time.LocalDate;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -33,7 +36,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
     public void Connect () throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sports_01", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edubike", "root", "");
             System.out.println("The database was connected");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,13 +65,14 @@ public class MonitorMantainance extends javax.swing.JFrame {
     
     public void table(){
         try {
-            pst = con.prepareStatement("SELECT VehicleID, Cost, `Start Date`, Description"
+            pst = con.prepareStatement("SELECT VehicleID, Cost, `Start Date`, Description "
                     + "FROM maintenance as M");
             Rs = pst.executeQuery();
             DefaultTableModel df = (DefaultTableModel) BINWT.getModel();
             df.setRowCount(0);
             while(Rs.next()){
-                String data[] = {Rs.getString("VehicleID"), Rs.getString("Cost"), Rs.getString("Start Date"), Rs.getString("Description")};
+                System.out.println("yoyoy");
+                String data[] = {String.valueOf(Rs.getInt("VehicleID")), String.valueOf(Rs.getInt("Cost")), Rs.getDate("Start Date").toString(), Rs.getString("Description")};
                 df.addRow(data);
             }
         } catch (SQLException ex) {
@@ -87,7 +91,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
         while (ok) {
             try {
                 String mm = String.valueOf(randomNumberGenerator (10000000, 99999999));
-                pst = con.prepareStatement("select * from vehicle as V where V.VehicleID = ?");
+                pst = con.prepareStatement("select * from vehicle as V WHERE V.VehicleID = ?");
                 pst.setString(1, mm);
                 var rs = pst.executeQuery();
                 if (!rs.next()) {
@@ -217,35 +221,32 @@ public class MonitorMantainance extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JBP1)
-                                    .addComponent(VID1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(JBP2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(VD)
-                                    .addComponent(VEOD)
-                                    .addComponent(VSD)
-                                    .addComponent(VC))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(JBP1)
+                            .addComponent(VID1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(JBP2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(VD)
+                            .addComponent(VEOD)
+                            .addComponent(VSD)
+                            .addComponent(VC, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(VID2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61))))
+                        .addComponent(VID2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,17 +337,17 @@ public class MonitorMantainance extends javax.swing.JFrame {
         }
         
         try {
-            pst = con.prepareStatement("select VehicleID, UserID from vehicle as V where V.VehicleID = ?");
+            pst = con.prepareStatement("select VehicleID, Owner_Type from vehicle as V where V.VehicleID = ?");
             pst.setString(1, vid2);
             var rs = pst.executeQuery();
             rs.next();
-            String uid = rs.getString("AdminID");
-            if (uid.charAt(0) == '2') {
+            int own = rs.getInt("Owner_Type");
+            if (own == 0) {
                 JOptionPane.showMessageDialog(this, "Sorry! Only EduVehicle's vechicles can be send to maintainance");
                 return;
             }  
         } catch (SQLException ex) {
-            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         // check if already in maintainance:
@@ -365,7 +366,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
         
         // set availability status of VID2 to unavaiible.
         try {
-            pst = con.prepareStatement("update vehicle SET `Availability Status` = 0 WHERE vehicleID = ?");
+            pst = con.prepareStatement("update vehicle SET `Availability_Status` = 0 WHERE vehicleID = ?");
             pst.setString(1, vid2); 
             var rs = pst.executeUpdate();
         } catch (SQLException ex) {
@@ -374,28 +375,60 @@ public class MonitorMantainance extends javax.swing.JFrame {
         //insert VID2  to maintainance log
         try {
             
-            String mid = findmid();
+//            String mid = findmid();
             String cost = VC.getText();
             String startdate = VSD.getText();
             String expendofdate = VEOD.getText();
             String description = VD.getText(); 
             //vid2
             String adminnid = String.valueOf(ID);
-            pst = con.prepareStatement("INSERT INTO maintenance (MaintenanceID, Cost, `Start Date`, `Expected Over Date`, Description, VehicleID, AdminID) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            pst.setString(1, mid);
-            pst.setString(2, cost);
-            pst.setString(3, startdate);
-            pst.setString(4, expendofdate);
-            pst.setString(5, description);
-            pst.setString(6, vid2);
-            pst.setString(7, adminnid);
-            var rs = pst.executeQuery();
-            rs.next();
-            String uid = rs.getString("AdminID");
-            if (uid.charAt(0) == '2') {
-                JOptionPane.showMessageDialog(this, "Sorry! Only EduVehicle's vechicles can be send to maintainance");
-                return;
-            }  
+            
+            
+            //
+            java.sql.Date sqlDate = null;
+            java.sql.Date sqlDateover = null;
+            try {
+                // Define the date format
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                // Parse the String to java.util.Date
+                Date utilDate = dateFormat.parse(startdate);
+                Date utilDateover = dateFormat.parse(expendofdate);
+                // Convert java.util.Date to java.sql.Date
+                sqlDate = new java.sql.Date(utilDate.getTime());
+                sqlDateover = new java.sql.Date(utilDateover.getTime());
+                
+//                System.out.println("Original String: " + dateString);
+//                System.out.println("java.sql.Date: " + sqlDate);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //
+            
+            //
+            int viddd = 0;
+            int admiidddd = 0;
+            try {
+                // Convert String to int
+                viddd = Integer.parseInt(vid2);
+                admiidddd = Integer.parseInt(adminnid);
+            } catch (NumberFormatException e) {
+                // Handle the case when the string cannot be parsed to an int
+                System.out.println("Error: Unable to parse the string as an integer.");
+                e.printStackTrace();
+            }
+            //
+            
+            pst = con.prepareStatement("INSERT INTO maintenance (Cost, `Start Date`, `Expected Over Date`, Description, VehicleID, AdminID) VALUES (?, ?, ?, ?, ?, ?)");
+//            pst.setString(, mid);
+            pst.setString(1, cost);
+            pst.setDate(2, sqlDate);
+            pst.setDate(3, sqlDateover);
+            pst.setString(4, description);
+            pst.setInt(5, viddd);
+            pst.setInt(6, admiidddd);
+            var rs = pst.executeUpdate();  
         } catch (SQLException ex) {
             Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -411,7 +444,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
         }
         // if already not in maintenance
         try {
-            pst = con.prepareStatement("select * from maintenance as M where V.VehicleID = ?");
+            pst = con.prepareStatement("select * from maintenance as M where M.VehicleID = ?");
             pst.setString(1, vid1);
             var rs = pst.executeQuery();
             if (!rs.next()) {
@@ -424,7 +457,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
         
         // make VID1 available for rent
         try {
-            pst = con.prepareStatement("update vehicle SET `Availability Status` = 1 WHERE vehicleID = ?");
+            pst = con.prepareStatement("update vehicle SET `Availability_Status` = 1 WHERE vehicleID = ?");
             pst.setString(1, vid1); 
             var rs = pst.executeUpdate();
         } catch (SQLException ex) {
@@ -432,7 +465,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
         }
         // remove VID1 from maintainance log
         try {
-            pst = con.prepareStatement("select * from maintenance as M where V.VehicleID = ?");
+            pst = con.prepareStatement("select * from maintenance as M where M.VehicleID = ?");
             pst.setString(1, vid1); 
             var rs = pst.executeQuery();
             
