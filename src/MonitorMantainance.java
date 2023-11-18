@@ -68,7 +68,31 @@ public class MonitorMantainance extends javax.swing.JFrame {
             Logger.getLogger(MonitorMantainance.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    public static int randomNumberGenerator(int min, int max){
+        Random r = new Random();
+        int randomNum = r.nextInt(max - min);
+        int result = randomNum + min;
+        return result;
+    }
+    public String findmid () {
+        boolean ok = true;
+        String mfin = "";
+        while (ok) {
+            try {
+                String mm = String.valueOf(randomNumberGenerator (10000000, 99999999));
+                pst = con.prepareStatement("select * from vehicle as V where V.VehicleID = ?");
+                pst.setString(1, mm);
+                var rs = pst.executeQuery();
+                if (!rs.next()) {
+                    ok = false;
+                    mfin = mm;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return mfin;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -319,7 +343,18 @@ public class MonitorMantainance extends javax.swing.JFrame {
         }
         
         // check if already in maintainance:
-        
+        try {
+            pst = con.prepareStatement("select VehicleID from maintenance as M where M.VehicleID = ?");
+            pst.setString(1, vid2);
+            var rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "This vehicle is already in maintenance");
+                return;
+            }  
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         // set availability status of VID2 to unavaiible.
         try {
@@ -329,9 +364,10 @@ public class MonitorMantainance extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //inert VID2  to maintainance log
+        //insert VID2  to maintainance log
         try {
-            String mid = ;
+            
+            String mid = findmid();
             String cost = VC.getText();
             String startdate = VSD.getText();
             String expendofdate = VEOD.getText();
@@ -372,7 +408,7 @@ public class MonitorMantainance extends javax.swing.JFrame {
             pst.setString(1, vid1);
             var rs = pst.executeQuery();
             if (!rs.next()) {
-                JOptionPane.showMessageDialog(this, "This vehicle is already not int maintenance");
+                JOptionPane.showMessageDialog(this, "This vehicle is already not in maintenance");
                 return;
             }
         } catch (SQLException ex) {
