@@ -155,19 +155,27 @@ public class RentAVehicle extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // TODO add your handling code here:
-        BIKE_RENT c = new BIKE_RENT(ID);
-        c.setVisible(true);
-        this.setVisible(false);
-        //new BIKE_RENT().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            BIKE_RENT c = new BIKE_RENT(ID);
+            c.setVisible(true);
+            this.setVisible(false);
+            //new BIKE_RENT().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RentAVehicle.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
-        CAR_RENT c = new CAR_RENT(ID);
-        c.setVisible(true);
-        this.setVisible(false);
-        //new CAR_RENT().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            CAR_RENT c = new CAR_RENT(ID);
+            c.setVisible(true);
+            this.setVisible(false);
+            //new CAR_RENT().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(RentAVehicle.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
