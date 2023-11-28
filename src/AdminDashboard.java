@@ -97,7 +97,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Supervise Edubike Location");
+        jLabel2.setText("Supervise Vehicle Location");
         jLabel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 0, 255), 5, true));
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -170,7 +170,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 10, 100, 50));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 10, 100, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
 

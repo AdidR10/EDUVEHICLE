@@ -149,7 +149,7 @@ public class Dashboard extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 620, 130, 60));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 130, 60));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 51, 51));
@@ -162,30 +162,38 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 30, 150, 50));
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("UserID: ");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 350, -1, -1));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Name: ");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 380, -1, -1));
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Email:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 410, -1, -1));
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 200, 120, 120));
 
         LID.setText("UserID");
-        jPanel1.add(LID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 350, -1, -1));
+        jPanel1.add(LID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 360, -1, -1));
 
         LEM.setText("Email");
-        jPanel1.add(LEM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 410, -1, -1));
+        jPanel1.add(LEM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 420, -1, -1));
 
         LNM.setText("Name");
-        jPanel1.add(LNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 380, -1, -1));
+        jPanel1.add(LNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 390, -1, -1));
 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Vehicles rented:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 450, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 440, -1, -1));
 
         NUMREN.setText("jLabel16");
-        jPanel1.add(NUMREN, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 450, -1, -1));
+        jPanel1.add(NUMREN, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 450, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 720));
 

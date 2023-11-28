@@ -254,10 +254,10 @@ public class SignUp1 extends javax.swing.JFrame {
                 pst.setString(5, Nid);
                 
                 
-                
+                String lel = "your user ID is :" + String.valueOf(UID);
                 NAME.setText("");
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(this, "User is added");
+                JOptionPane.showMessageDialog(this, lel);
 
                 Login1 m = new Login1();
                 this.hide();
